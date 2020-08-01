@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:aurea/screens/login.dart';
+import 'package:aurea/screens/swipePages.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Timer(Duration(milliseconds: 4000), (){
-      Navigator.push(context,MaterialPageRoute(builder: (context)=> Login()));
+      Navigator.push(context,MaterialPageRoute(builder: (context)=> SwipePages()));
     } );
     super.initState();
   }
