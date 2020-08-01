@@ -2,7 +2,8 @@ class Example{
   String category;
   String imageUrl;
   String title;
-  Example({this.category, this.imageUrl, this.title});
+  String artist;
+  Example({this.category, this.imageUrl, this.title, this.artist});
 }
 
 final List<Example> nature = [
@@ -32,5 +33,22 @@ final List<Example> arch = [
 ];
 
 final List<Example> art = [
+  Example(category: 'art', imageUrl: 'assets/images/golden-ratio/art/art.jpeg', title: 'The Man in Action', artist: 'Leonardo Da Vinci'),
+  Example(category: 'art', imageUrl: 'assets/images/golden-ratio/art/art1.png', title: 'The Death of Socrates', artist: 'Jacques Louis David',),
+  Example(category: 'art', imageUrl: 'assets/images/golden-ratio/art/bathers.gif', title: 'Bathers', artist: 'Seurat'),
+  Example(category: 'art', imageUrl: 'assets/images/golden-ratio/art/blue-dress.jpg', title: 'Girl Portrait'),
+  Example(category: 'art', imageUrl: 'assets/images/golden-ratio/art/creation-of-adam.png', title: 'The Creation of Adam', artist: 'Micahelangelo'),
+  Example(category: 'art', imageUrl: 'assets/images/golden-ratio/art/hindustani-bhau.jpeg', title: 'Saint John', artist: 'Leonardo Da Vinci'),
+  Example(category: 'art', imageUrl: 'assets/images/golden-ratio/art/holy-family.gif', title: ' Holy Family', artist: 'Micahelangelo'),
+  Example(category: 'art', imageUrl: 'assets/images/golden-ratio/art/last-supper.gif', title: ' The sacrament of the Last Supper',artist: 'Salvador Dali'),
+  Example(category: 'art', imageUrl: 'assets/images/golden-ratio/art/Mary.jpg', title: 'Self Potrait', artist: 'Mary Cassatt'),
+  Example(category: 'art', imageUrl: 'assets/images/golden-ratio/art/monalisa.jpg', title: 'Monalisa', artist: 'Leonardo Da Vinci'),
+  Example(category: 'art', imageUrl: 'assets/images/golden-ratio/art/old man.gif', title: 'An Old man', artist: 'Leonardo Da Vinci'),
+  Example(category: 'art', imageUrl: 'assets/images/golden-ratio/art/pearl-woman.jpg', title: 'Girl with a Pearl Earring', artist: 'Johannes Vermeer'),
+  Example(category: 'art', imageUrl: 'assets/images/golden-ratio/art/rembrandt.gif', title: 'Self portrait', artist: 'Rembrandt'),
+  Example(category: 'art', imageUrl: 'assets/images/golden-ratio/art/table.gif', title: 'Annunciation', artist: 'Leonardo Da Vinci'),
+];
 
+List<Example> human = [
+  
 ];
