@@ -60,7 +60,7 @@ class _HomeState extends State<Home> {
        body: PageView(
          children: <Widget>[
            InfoPage(),
-           Example(),
+           ExamplePage(),
            AddPost(),
            Interactive(),
            Forum()
