@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "5632746362",
+    "firebase_url": "https://aurea-666f9.firebaseio.com",
+    "project_id": "aurea-666f9",
+    "storage_bucket": "aurea-666f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5632746362:android:af4e06a5efb5c0de4becc3",
+        "android_client_info": {
+          "package_name": "com.codeplay.aurea"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5632746362-b39vtgd6m8i874s97v1grb22pfruql9h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codeplay.aurea",
+            "certificate_hash": "e108d2ac9130c240c23bedb84f33324f0c12e04b"
+          }
+        },
+        {
+          "client_id": "5632746362-bo2pt18ikj48q81a9o5pmj90i43e3q1j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOFySffXEJKIZHqDVv4jEpisg0zQfSXnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5632746362-bo2pt18ikj48q81a9o5pmj90i43e3q1j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
