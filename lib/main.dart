@@ -1,3 +1,5 @@
+
+import 'package:aurea/screens/examples.dart';
 import 'package:aurea/screens/home.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Home(),
+      home: ExamplePage(),
     );
   }
 }
