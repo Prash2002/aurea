@@ -54,7 +54,12 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
 
+    - assets/images/golden-ratio/arch/
+    - assets/images/golden-ratio/art/
+    - assets/images/golden-ratio/human/
+    - assets/images/golden-ratio/meme/
     - assets/images/golden-ratio/nature/
+    - assets/images/golden-ratio/tech/
     - assets/images/
 
   #   - images/a_dot_ham.jpeg

@@ -50,5 +50,5 @@ final List<Example> art = [
 ];
 
 List<Example> human = [
-  
+  Example(imageUrl:'', title: '')
 ];
