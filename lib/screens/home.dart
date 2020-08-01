@@ -20,7 +20,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    pageController = PageController();
+    pageController = PageController(initialPage: 2);
     super.initState();
   }
   @override
