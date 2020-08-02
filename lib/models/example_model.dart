@@ -60,6 +60,31 @@ List<Example> human = [
 ];
 
 List<Example> meme = [
-  Example(imageUrl: 'assets/images/golden-ratio/human/', title: ''),
-  
+  Example(imageUrl: 'assets/images/golden-ratio/meme/cat', title: 'Purrfect Cat'),
+  Example(imageUrl: 'assets/images/golden-ratio/meme/drake', title: 'Drake knows it'),
+  Example(imageUrl: 'assets/images/golden-ratio/meme/fawcett', title: '(*-*)'),
+  Example(imageUrl: 'assets/images/golden-ratio/meme/geek', title: 'Geek'),
+  Example(imageUrl: 'assets/images/golden-ratio/meme/mexican-bros', title: 'Mexican bros'),
+  Example(imageUrl: 'assets/images/golden-ratio/meme/purrfect', title: 'Cats are Purrfect'),
+  Example(imageUrl: 'assets/images/golden-ratio/meme/salesman', title: 'Stonks _/'),
+  Example(imageUrl: 'assets/images/golden-ratio/meme/simpson', title: 'Homer not Boomer'),
+  Example(imageUrl: 'assets/images/golden-ratio/meme/sonic', title: 'Sonic'),
+  Example(imageUrl: 'assets/images/golden-ratio/meme/squidward', title: 'Squidward'),
+  Example(imageUrl: 'assets/images/golden-ratio/meme/trump', title: 'Trump'),
+  Example(imageUrl: 'assets/images/golden-ratio/meme/fist', title: 'Fist'),
+];
+
+List<Example> tech = [
+  Example(imageUrl: 'assets/images/golden-ratio/tech/controller', title: 'Xbox Controller'),
+  Example(imageUrl: 'assets/images/golden-ratio/tech/ferrari', title: 'Ferrari'),
+  Example(imageUrl: 'assets/images/golden-ratio/tech/google', title: 'Google'),
+  Example(imageUrl: 'assets/images/golden-ratio/tech/ios', title: 'Apple'),
+  Example(imageUrl: 'assets/images/golden-ratio/tech/martin', title: 'Martin'),
+  Example(imageUrl: 'assets/images/golden-ratio/tech/natgeo', title: 'National Geographic'),
+  Example(imageUrl: 'assets/images/golden-ratio/tech/pepsi', title: 'Pepsi'),
+  Example(imageUrl: 'assets/images/golden-ratio/tech/toyota', title: 'Toyota'),
+  Example(imageUrl: 'assets/images/golden-ratio/tech/twitter', title: 'Twitter'),
+  // Example(imageUrl: 'assets/images/golden-ratio/tech/', title: ''),
+  // Example(imageUrl: 'assets/images/golden-ratio/tech/', title: ''),
+  // Example(imageUrl: 'assets/images/golden-ratio/tech/', title: ''),
 ];
