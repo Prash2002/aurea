@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 class Category extends StatefulWidget {
   final List<Example> list;
-
-  const Category({this.list});
+  final Color color;
+  const Category({this.list, this.color});
   @override
   _CategoryState createState() => _CategoryState();
 }
@@ -12,9 +12,15 @@ class Category extends StatefulWidget {
 class _CategoryState extends State<Category> {
   @override
   Widget build(BuildContext context) {
+  var orientation = MediaQuery.of(context).orientation;
+  var width= MediaQuery.of(context).size.width;
+  var height= MediaQuery.of(context).size.height;
     return Scaffold(
           body: Container(
+            color: widget.color,
             child: ListView.builder(
+              scrollDirection: orientation== Orientation.portrait ?Axis.vertical :Axis.horizontal,
+              
               itemCount: widget.list.length,
               itemBuilder: (context, index){
                 return Padding(
@@ -26,6 +32,7 @@ class _CategoryState extends State<Category> {
                           padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
                           child: Image.asset(
                              widget.list[index].imageUrl,
+                            //  height: height* 0.7,
                           ),
                         ),
                         Padding(
