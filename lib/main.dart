@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Color.fromRGBO(56, 173, 169,1),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SplashScreen(),
+      home: Home(),
     );
   }
 }
