@@ -18,14 +18,12 @@ class _ExamplePageState extends State<ExamplePage> {
   var orientation = MediaQuery.of(context).orientation;
   var height= MediaQuery.of(context).size.height;
   final List<Widget> imageSliders = categories.map((item) => Container(
-  child: FlatButton(
+    height: height*0.9,
+    child: FlatButton(
       onPressed: (){
         Navigator.push(context, MaterialPageRoute(builder: (context)=>Category(list: item.list, color: item.color,)));
       },
       child: Container(
-        
-              // width:width,
-              // height: height * 0.4,
       margin: EdgeInsets.all(5.0),
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -35,7 +33,7 @@ class _ExamplePageState extends State<ExamplePage> {
               item.image, 
               fit: BoxFit.cover, 
               width:width,
-              height: height * 0.4,
+              // height: height * 0.7,
               ),
             Positioned(
               bottom: 0.0,
@@ -70,40 +68,58 @@ class _ExamplePageState extends State<ExamplePage> {
   ),
 )).toList();
 
+Widget widget1 = ListView.builder(
+                  scrollDirection:Axis.vertical,
+                  physics: orientation==Orientation.portrait?NeverScrollableScrollPhysics(): AlwaysScrollableScrollPhysics() , //for landscape comment this
 
-    return SafeArea(
-        child: Scaffold(
-         body: 
-         SingleChildScrollView(
-             child: Container(
-              //  https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg
-              //  https://image.freepik.com/free-vector/vintage-ornamental-flowers-background_52683-28040.jpg
-                decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage('https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg'),
-                  // fit:BoxFit.fitWidth,
-                  repeat: ImageRepeat.repeat
-                ),
-              ),
-              //  color: Colors.black,
-               child: Column(
-               children: <Widget>[
-                 SizedBox(
-                   height: height* 0.07,
-                 ),
-                 CarouselSlider(
-                      items: imageSliders,
-                      options: CarouselOptions(
-                        autoPlay: true,
-                        enlargeCenterPage: true,
-                        aspectRatio: 2.0,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            _current = index;
-                          });
-                        }
+                  shrinkWrap: true,
+                  itemCount: all.length,
+                  itemBuilder: (context, index){
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 10.0),
+                      child: Card(
+                        // color: Colors.white70,
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+                              child:
+                               Container(
+                                 child: Image.asset(
+                                   all[index].imageUrl,
+                                  //  width: width* 0.2,
+                                  // height: height*0.2,
+                                   fit: BoxFit.cover,
+                              ),
+                            ),),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text( all[index].title),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                     );
+                     }
+                    );
+List<Widget> widget = [
+                 Container(
+                   height: orientation==Orientation.portrait?height*0.3:height*0.7,
+                   child: CarouselSlider(
+                        items: imageSliders,
+                        options: CarouselOptions(
+                          scrollDirection:  orientation==Orientation.portrait?Axis.horizontal:Axis.vertical,
+                          autoPlay: true,
+                          enlargeCenterPage: true,
+                          aspectRatio: 2.0,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _current = index;
+                            });
+                          }
+                        ),
+                      ),
+                 ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: categories.map((url) {
@@ -121,48 +137,79 @@ class _ExamplePageState extends State<ExamplePage> {
                         );
                       }).toList(),
                     ),
-                  Wrap(
-                    children: <Widget>[
-                      ListView.builder(
-                      scrollDirection: orientation== Orientation.portrait ?Axis.vertical :Axis.horizontal,
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: all.length,
-                      itemBuilder: (context, index){
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 10.0),
-                          child: Card(
-                            // color: Colors.white70,
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-                                  child:
-                                   Container(
-                                     child: Image.asset(
-                                       all[index].imageUrl,
-                                      //  width: width* 0.2,
-                                      // height: height*0.2,
-                                       fit: BoxFit.cover,
-                                  ),
-                                ),),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text( all[index].title),
-                                ),
-                              ],
-                            ),
-                          ),
-                         );
-                         }
-                        )
-                     ],
-                  ),
-               ],
-           ),
+                  
+];
+    return SafeArea(
+        child: Scaffold(
+         body:orientation==Orientation.portrait? SingleChildScrollView(
+                    child: Column(children: <Widget>[
+            Container(
+                     width: width,
+                      // height: height*0.5,
+                    //  https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg
+                    //  https://image.freepik.com/free-vector/vintage-ornamental-flowers-background_52683-28040.jpg
+                      decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage('https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg'),
+                        repeat: ImageRepeat.repeat
+                      ),
+                    ),child:Column(
+                       children: widget
+               
              ),
-         ),
+                   ),
+                   Container(
+                     width: width,
+                      // height: height,
+                    //  https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg
+                    //  https://image.freepik.com/free-vector/vintage-ornamental-flowers-background_52683-28040.jpg
+                      decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage('https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg'),
+                        repeat: ImageRepeat.repeat
+                      ),
+                    ),child: widget1
+                   ),
+           ],),
+         ):
+          //for landscape
+             Row(
+               children: <Widget>[
+                 Container(
+                   width: width*0.5,
+                    height: height,
+                  //  https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg
+                  //  https://image.freepik.com/free-vector/vintage-ornamental-flowers-background_52683-28040.jpg
+                    decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage('https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg'),
+                      repeat: ImageRepeat.repeat
+                    ),
+                  ), 
+                  child: SingleChildScrollView(
+                 child: Column(
+                   children: widget
+             
+           ),
+          ),
+                 ),
+                 Container(
+                   width: width*0.5,
+                    height: height,
+                  //  https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg
+                  //  https://image.freepik.com/free-vector/vintage-ornamental-flowers-background_52683-28040.jpg
+                    decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage('https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg'),
+                       repeat: ImageRepeat.repeat
+                    ),
+                  ),
+                   child: widget1
+                 ),
+               ],
+             ),
       ),
     );
   }
 }
+
