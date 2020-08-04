@@ -6,6 +6,7 @@ import 'dart:io';
 import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
+import 'package:aurea/models/genButtons.dart';
 import 'package:aurea/screens/calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as mat;
@@ -28,7 +29,8 @@ class _InteractiveState extends State<Interactive> with AutomaticKeepAliveClient
   File image;
   final picker = ImagePicker();
   PhotoViewController photoViewController;
-
+  String spiralName ="spiral-2-hor.png";
+  bool leftSpiral = true;
   @override
   void initState() { 
     super.initState();
@@ -57,6 +59,25 @@ class _InteractiveState extends State<Interactive> with AutomaticKeepAliveClient
     });
   }
 
+  axisFlip(){
+    setState(() {
+      leftSpiral = !leftSpiral;
+    if(!leftSpiral)
+     spiralName = "spiral-2.png";
+     else 
+     spiralName = "spiral-2-hor.png";
+    });
+  }
+
+  reset(){
+    setState(() {
+      image = null;
+    });
+  }
+
+  invertColor(){
+
+  }
   var top = 0.0;
   var left = 0.0;
 
@@ -113,6 +134,10 @@ return file;
 
   Future downloadImage() async{
 
+    if(image==null){
+      return ;
+    }
+
     double scale = photoViewController.scale;
     Offset offset = photoViewController.rotationFocusPoint;
     double rotate = photoViewController.rotation;
@@ -122,9 +147,9 @@ return file;
     
     final image1 = decodeImage(image.readAsBytesSync());
     
-    final file = await getImageFileFromAssets("spiral-2-hor.png");
+    final file = await getImageFileFromAssets(spiralName);
     final tempImage = decodeImage(file.readAsBytesSync());
-    im.Image image3 = copyResize(tempImage, width: (tempImage.width * (scale/0.2784876140808344)).toInt() ,height: (tempImage.height* (scale/0.2784876140808344)).toInt());
+    im.Image image3 = copyResize(tempImage, width: (tempImage.width * (scale/0.228)).toInt() ,height: (tempImage.height* (scale/0.228)).toInt());
     im.Image image2 = copyRotate(image3, rotate*180/3.14);
     print(tempImage.width * (scale/0.2784));
     print((tempImage.width * (scale/0.2784)).toInt());
@@ -132,12 +157,12 @@ return file;
     final mergedImage = im.Image(image1.width,image1.height);
     // var dX = image1.width/2;
     // var dY = image1.height/2;
-    var dX = (image1.width - image2.width)/2;
-    var dY = (image1.height - image2.height )/2;
+    var dX = (image1.width - image2.width)/2 ;
+    var dY = (image1.height - image2.height )/2 ;
     print(dX);
     print(dY);
     copyInto(mergedImage, image1, blend : true);
-    copyInto(mergedImage, image2, dstX: dX.toInt(), dstY:dY.toInt(),srcX: 10, srcY: 10, blend:true);
+    copyInto(mergedImage, image2, dstX: dX.toInt(), dstY:dY.toInt(),srcX: 0, srcY: 0, blend:true);
 
     final documentDirectory = await getExternalStorageDirectory();
  
@@ -220,7 +245,7 @@ return file;
                     ),
                 ),
               ),
-              SizedBox(height:40),
+              SizedBox(height:20),
               Container(
                 width:height*0.3*1.618,
                 height: height*0.3,
@@ -249,7 +274,7 @@ return file;
                             child: ClipRect(
                             child: PhotoView(
                             controller: photoViewController,
-                            imageProvider: AssetImage("assets/images/spiral-2-hor.png"),
+                            imageProvider: AssetImage("assets/images/$spiralName"),
                             minScale: PhotoViewComputedScale.contained * 0.3,
                             maxScale: PhotoViewComputedScale.contained * 1.5,
                             enableRotation: true,
@@ -279,7 +304,25 @@ return file;
                   //  },
                 ),
               ),
-              SizedBox(height: 40,),
+              SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  GestureDetector(
+                    child: GenButton("Flip Axis"),
+                    onTap: ()=>axisFlip(),
+                  ),
+                  GestureDetector(
+                    child: GenButton("Invert Color"),
+                    onTap: ()=>invertColor(),
+                  ),
+                  GestureDetector(
+                    child: GenButton("Reset"),
+                    onTap: ()=>reset(),
+                  ),
+                ],
+              ),
+              SizedBox(height: 30,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
@@ -298,7 +341,7 @@ return file;
                   label: Text("Upload Image", style:TextStyle(fontSize: 17 ,color: Colors.white))
                   )
               ],),
-              SizedBox(height: 20,),
+              SizedBox(height: 15,),
               GestureDetector(
                 child: Text("Use Golden Ratio Calculator",
                 style: TextStyle(
