@@ -2,6 +2,7 @@ import 'package:aurea/screens/infoVideos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+
 class InfoPage extends StatefulWidget {
   @override
   _InfoPageState createState() => _InfoPageState();
