@@ -1,15 +1,18 @@
+//add reset, flip axis, invert colour
+//merge properly
+//toastmaker download success
+
 import 'dart:io';
 import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
-
 import 'package:aurea/screens/calculator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as mat;
 import 'package:flutter/services.dart';
-// import 'package:image/image.dart';
-// import 'package:image/image.dart';
+import 'package:image/image.dart';
+import 'package:image/image.dart' as im;
 import 'package:image_downloader/image_downloader.dart';
-
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -17,7 +20,6 @@ import 'package:photo_view/photo_view.dart';
 import 'package:save_in_gallery/save_in_gallery.dart';
 
 class Interactive extends StatefulWidget {
-   Offset initPos;
   @override
   _InteractiveState createState() => _InteractiveState();
 }
@@ -25,25 +27,34 @@ class Interactive extends StatefulWidget {
 class _InteractiveState extends State<Interactive> with AutomaticKeepAliveClientMixin<Interactive> {
   File image;
   final picker = ImagePicker();
+  PhotoViewController photoViewController;
+
+  @override
+  void initState() { 
+    super.initState();
+    photoViewController = PhotoViewController();
+  }
+
+  @override
+  void dispose() { 
+    photoViewController.dispose();
+    super.dispose();
+  }
   
   Future imageGallery(context) async {
     Navigator.pop(context);
     final tempFile = await picker.getImage(source: ImageSource.gallery);
-    print(tempFile);
     setState(() {
       image = File(tempFile.path);
     });
-    print(image);
   }
 
   Future imageCamera(context) async {
     Navigator.pop(context);
     final tempFile = await picker.getImage(source: ImageSource.camera);
-    print(tempFile);
     setState(() {
       image = File(tempFile.path);
     });
-    print(image);
   }
 
   var top = 0.0;
@@ -86,66 +97,69 @@ class _InteractiveState extends State<Interactive> with AutomaticKeepAliveClient
       );
   }
 
+   getImageFileFromAssets(String path) async {
+
+  final filename = path;
+ByteData imageData = await rootBundle.load("assets/images/$filename");
+ List<int>bytes = Uint8List.view(imageData.buffer);
+String dir = (await getApplicationDocumentsDirectory()).path;
+ final File file = File('$dir/$filename');
+ File('$dir/$filename').writeAsBytesSync(bytes);
+
+return file;
+  } 
+
   final _imageSaver =  ImageSaver();
 
-  Future downloadImage()async{
-    print("inside");
-    // if(image==null){
-    //   print("its null");
-    // //   return ;
-    // // }
+  Future downloadImage() async{
 
-    // final image1 = decodeImage(File('imageA.jpg').readAsBytesSync());
-    // final image2 = decodeImage(File('imageB.jpg').readAsBytesSync());
-    // // final mergedImage = Image(image1.width + image2.width, max(image1.height, image2.height));
-    // final mergedImage = Image.asset("assets/imahes");
-    // // copyInto(mergedImage, image1, blend = false);
-    // // copyInto(mergedImage, image2, dstx = image1.width, blend = false);
-
-    // final documentDirectory = await getApplicationDocumentsDirectory();
-    // final file = new File(join(documentDirectory.path, "merged_image.jpg"));
-    // file.writeAsBytesSync(encodeJpg(mergedImage));
-
-  //   final urls = ["image"];
-  //   print(urls);
-  //   List<Uint8List> bytesList = [];
-  // 	for (final url in urls) {
-	// 	final bytes =  await rootBundle.load(url);
-	// 	bytesList.add(bytes.buffer.asUint8List());
-	// }
-	// // 3
-	//    final res = await _imageSaver.saveImages(
-	// 	imageBytes: bytesList
-	//    );
-  //    print(res);
-
-    // Directory appDocDir = await getApplicationDocumentsDirectory();
-    // final String path = appDocDir.path;
-
-    // final filename = basename(image.path);
-    // final File localImage = await image.copy('$path/$filename');
-    // print(localImage);
-    // print(path);
+    double scale = photoViewController.scale;
+    Offset offset = photoViewController.rotationFocusPoint;
+    double rotate = photoViewController.rotation;
+    print(scale);
+    print(offset);
+    print(rotate);
     
+    final image1 = decodeImage(image.readAsBytesSync());
     
-    
-//     try {
-//   // Saved with this method.
-//   var imageId = await ImageDownloader.downloadImage(image.path);
-//   if (imageId == null) {
-//     return;
-//   }
+    final file = await getImageFileFromAssets("spiral-2-hor.png");
+    final tempImage = decodeImage(file.readAsBytesSync());
+    im.Image image3 = copyResize(tempImage, width: (tempImage.width * (scale/0.2784876140808344)).toInt() ,height: (tempImage.height* (scale/0.2784876140808344)).toInt());
+    im.Image image2 = copyRotate(image3, rotate*180/3.14);
+    print(tempImage.width * (scale/0.2784));
+    print((tempImage.width * (scale/0.2784)).toInt());
+    print(image2.xOffset);
+    final mergedImage = im.Image(image1.width,image1.height);
+    // var dX = image1.width/2;
+    // var dY = image1.height/2;
+    var dX = (image1.width - image2.width)/2;
+    var dY = (image1.height - image2.height )/2;
+    print(dX);
+    print(dY);
+    copyInto(mergedImage, image1, blend : true);
+    copyInto(mergedImage, image2, dstX: dX.toInt(), dstY:dY.toInt(),srcX: 10, srcY: 10, blend:true);
 
-//   // Below is a method of obtaining saved image information.
-//   var fileName = await ImageDownloader.findName(imageId);
-//   var path = await ImageDownloader.findPath(imageId);
-//   var size = await ImageDownloader.findByteSize(imageId);
-//   var mimeType = await ImageDownloader.findMimeType(imageId);
-//   print(fileName);
-// } on PlatformException catch (error) {
-//   print(error);
-// }
+    final documentDirectory = await getExternalStorageDirectory();
+ 
+    final mergedfilename = new File(join(documentDirectory.path, "merged_image.jpg"));
+
+    final finalFile = mergedfilename.writeAsBytesSync(encodeJpg(mergedImage));
+
+    final urls = [mergedfilename.path];
+    List<Uint8List> bytesList = [];
+  	for (final url in urls) {
+		final bytes =  await rootBundle.load(url);
+		bytesList.add(bytes.buffer.asUint8List());
+	}
+
+	   final res = await _imageSaver.saveImages(
+		imageBytes: bytesList,
+	   );
+     print(res);  
+  
+ 
   }
+
   bool get wantKeepAlive => true;
   
   @override
@@ -153,140 +167,9 @@ class _InteractiveState extends State<Interactive> with AutomaticKeepAliveClient
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     var orientation = MediaQuery.of(context).orientation;
-    // return Scaffold(
-    //   body: Container(
-    //     height: height,
-    //     width: width,
-    //     child: Stack(
-    //       // mainAxisAlignment: MainAxisAlignment.center,
-    //       children: <Widget>[
-    //     //     AspectRatio(
-    //     //       aspectRatio: 1/1.6,
-    //     //       // color: Colors.red[100],
-    //     //       // height: height*0.5,
-    //     //       // width: width*0.7,
-    //     //       // child: image == null? Text("No file"):
-    //     //      child: Positioned(
-    //     //         left: position.dx,
-    //     //         top:position.dy,
-    //     //             child: Draggable<AssetImage>(
-    //     //               data: apple,
-    //     //               // child: ClipRect(
-    //     //               // child: PhotoView(
-    //     //               // imageProvider: FileImage(image),
-    //     //               // minScale: PhotoViewComputedScale.contained * 0.8,
-    //     //               // maxScale: PhotoViewComputedScale.contained * 2,
-    //     //               // enableRotation: true,
-    //     //               // loadingBuilder: (context,event){
-    //     //               //   return CircularProgressIndicator();
-    //     //               // },
-    //     //               // backgroundDecoration: BoxDecoration(
-    //     //               //   color: Colors.green
-    //     //               // ),
-    //     //               // ),
-    //     //               // ),
-    //     //                child: Container(
-    //     //   width: 50.0,
-    //     //   height: 50.0,
-    //     //   decoration: BoxDecoration(
-    //     //     image: DecorationImage(
-    //     //       image: _imageToShow,
-    //     //     ),
-    //     //   ),
-    //     //   child: Center(
-    //     //     child: Text(
-    //     //       "Apple",
-    //     //       style: TextStyle(
-    //     //         color: Colors.black,
-    //     //         decoration: TextDecoration.none,
-    //     //         fontSize: 18.0,
-    //     //       ),
-    //     //     ),
-    //     //   ),
-    //     // ),
-    //     //              onDraggableCanceled: (velocity, offset){
-    //     //                setState(() {
-    //     //                  position = widget.initPos;
-    //     //                });
-    //     //              },
-    //     //              onDragStarted: () {
-    //     //   setState(() {
-    //     //     print('drag started');
-    //     //     _imageToShow = new AssetImage('assets/images/answered_apple.png');
-    //     //     return _imageToShow;
-    //     //   });
-    //     // },
-    //     // feedback: Container(
-    //     //   width: 60.0,
-    //     //   height: 60.0,
-    //     //   decoration: BoxDecoration(
-    //     //     image: DecorationImage(
-    //     //       image: _imageToShow,
-    //     //     ),
-    //     //   ),
-    //     //   child: Center(
-    //     //     child: Text(
-    //     //       "Apple",
-    //     //       style: TextStyle(
-    //     //         color: Colors.black,
-    //     //         decoration: TextDecoration.none,
-    //     //         fontSize: 16.0,
-    //     //       ),
-    //     //     ),
-    //     //   ),
-    //     // ),
-    //     //             ),
-    //     //       )
-    //     //     ),
-    //         Center(
-    //           child: Container(
-    //             height: height*0.6,
-    //             width: width*0.8,
-    //             color: Colors.red[100],
-    //             child: GestureDetector(
-    //               child: Stack(
-    //                 children: <Widget>[
-    //                   Positioned(
-    //                     top:top,
-    //                     left: left,
-    //                     child: Center(
-    //                       child: Container(
-    //                         width: 50,
-    //                         height: 50,
-    //                         decoration: BoxDecoration(
-    //                           shape: BoxShape.circle,
-    //                           color: Colors.blue
-    //                         ),
-    //                       )),
-    //                   ),
-    //                 ],
-    //               ),
-    //               onVerticalDragUpdate: (DragUpdateDetails dd){
-    //                 print(dd);
-    //                 setState(() {
-    //                   if(dd.localPosition.dy>=0 && dd.localPosition.dy<=height*0.6-50){
-    //                  top = dd.localPosition.dy;
-    //                   }
-    //                   if(dd.localPosition.dx>=0 && dd.localPosition.dx<=width*0.8-50){
-    //                 left = dd.localPosition.dx; 
-    //                   }
-    //                 });
-                    
-    //               },
-    //             ),
-    //           ),
-    //         ),
-    //         Align(
-    //           alignment: Alignment.bottomCenter,
-    //             child: FlatButton(
-    //             color: Colors.green[200],
-    //             onPressed: ()=>getImage(), 
-    //             child: Text("Select Image")),
-    //         )
-    //       ],
-    //     ),
-    //   ),
-    // );
+    print(height);
+    print(width);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -365,8 +248,9 @@ class _InteractiveState extends State<Interactive> with AutomaticKeepAliveClient
                             width: height*0.3*1.618,
                             child: ClipRect(
                             child: PhotoView(
+                            controller: photoViewController,
                             imageProvider: AssetImage("assets/images/spiral-2-hor.png"),
-                            minScale: PhotoViewComputedScale.contained * 0.5,
+                            minScale: PhotoViewComputedScale.contained * 0.3,
                             maxScale: PhotoViewComputedScale.contained * 1.5,
                             enableRotation: true,
                             loadingBuilder: (context,event){
@@ -401,14 +285,14 @@ class _InteractiveState extends State<Interactive> with AutomaticKeepAliveClient
                 children: <Widget>[
                   FlatButton.icon
                   (onPressed:()=>downloadImage(), 
-                  color: Color.fromRGBO(118, 110, 125,1),
+                  color: mat.Color.fromRGBO(118, 110, 125,1),
                   padding: EdgeInsets.symmetric(vertical:15,horizontal:6),
                   icon: Icon(Icons.file_download, size:20, color:Colors.white), 
                   label: Text("Download Image", style:TextStyle(fontSize: 17, color: Colors.white))
                   ),
                   FlatButton.icon
                   (onPressed:()=> upload(context), 
-                  color: Color.fromRGBO(226, 103, 67,1),
+                  color: mat.Color.fromRGBO(226, 103, 67,1),
                   padding: EdgeInsets.symmetric(vertical:15,horizontal:15),
                   icon: Icon(Icons.file_upload, size:20, color:Colors.white), 
                   label: Text("Upload Image", style:TextStyle(fontSize: 17 ,color: Colors.white))
@@ -425,10 +309,27 @@ class _InteractiveState extends State<Interactive> with AutomaticKeepAliveClient
                 ),
                 onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Calculator())),
               ),
+              scaleInfo(),
             ],
           ),
         ),
       ),
     );
   }
+
+  StreamBuilder<PhotoViewControllerValue> scaleInfo(){
+  return StreamBuilder(
+    stream: photoViewController.outputStateStream,
+    builder: (BuildContext context,AsyncSnapshot<PhotoViewControllerValue> snapshot){
+      if(!snapshot.hasData) {
+      return Container();}
+      print("Scale is ${snapshot.data.scale}");
+      print("Rotation is ${snapshot.data.rotation}");
+      print("Focus point is ${snapshot.data.rotationFocusPoint}");
+      print("Position is ${snapshot.data.position}");
+      return Container();
+    },
+  );
 }
+}
+
