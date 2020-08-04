@@ -1,5 +1,4 @@
-
-import 'package:aurea/screens/home.dart';
+import 'package:aurea/screens/splashScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Color.fromRGBO(56, 173, 169,1),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Home(),
+      home: SplashScreen(),
     );
   }
 }

@@ -1,19 +1,15 @@
-//add reset, flip axis, invert colour
 //merge properly
-//toastmaker download success
-
 import 'dart:io';
 import 'dart:async';
-import 'dart:math';
 import 'dart:typed_data';
 import 'package:aurea/models/genButtons.dart';
 import 'package:aurea/screens/calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as mat;
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image/image.dart';
 import 'package:image/image.dart' as im;
-import 'package:image_downloader/image_downloader.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -31,6 +27,7 @@ class _InteractiveState extends State<Interactive> with AutomaticKeepAliveClient
   PhotoViewController photoViewController;
   String spiralName ="spiral-2-hor.png";
   bool leftSpiral = true;
+  bool black = true;
   @override
   void initState() { 
     super.initState();
@@ -62,10 +59,14 @@ class _InteractiveState extends State<Interactive> with AutomaticKeepAliveClient
   axisFlip(){
     setState(() {
       leftSpiral = !leftSpiral;
-    if(!leftSpiral)
+    if(!leftSpiral && black)
      spiralName = "spiral-2.png";
-     else 
+     else if(leftSpiral && black) 
      spiralName = "spiral-2-hor.png";
+     else if(!leftSpiral && !black) 
+     spiralName = "red-spiral-right-hor.png";
+     else if(leftSpiral && !black) 
+     spiralName = "red-spiral-left-hor.png";
     });
   }
 
@@ -76,7 +77,17 @@ class _InteractiveState extends State<Interactive> with AutomaticKeepAliveClient
   }
 
   invertColor(){
-
+    setState(() {
+      black = !black;
+      if(!black && leftSpiral)
+      spiralName = "red-spiral-left-hor.png";
+      else if(!black && !leftSpiral)
+      spiralName= "red-spiral-right-hor.png";
+      else if(black && leftSpiral)
+      spiralName= "spiral-2-hor.png";
+      else if(black && !leftSpiral)
+      spiralName= "spiral-2.png";
+    });
   }
   var top = 0.0;
   var left = 0.0;
@@ -132,35 +143,31 @@ return file;
 
   final _imageSaver =  ImageSaver();
 
-  Future downloadImage() async{
+  Future downloadImage(context) async{
 
     if(image==null){
       return ;
     }
-
+    var orientation = MediaQuery.of(context).orientation;
     double scale = photoViewController.scale;
     Offset offset = photoViewController.rotationFocusPoint;
     double rotate = photoViewController.rotation;
-    print(scale);
-    print(offset);
-    print(rotate);
     
     final image1 = decodeImage(image.readAsBytesSync());
     
     final file = await getImageFileFromAssets(spiralName);
     final tempImage = decodeImage(file.readAsBytesSync());
-    im.Image image3 = copyResize(tempImage, width: (tempImage.width * (scale/0.228)).toInt() ,height: (tempImage.height* (scale/0.228)).toInt());
+    im.Image image3 = orientation==Orientation.portrait?
+     copyResize(tempImage, width: (tempImage.width * (scale/0.21)).toInt() ,height: (tempImage.height* (scale/0.21)).toInt())
+     :copyResize(tempImage, width: (tempImage.width * (scale/0.28)).toInt() ,height: (tempImage.height* (scale/0.28)).toInt());
     im.Image image2 = copyRotate(image3, rotate*180/3.14);
-    print(tempImage.width * (scale/0.2784));
-    print((tempImage.width * (scale/0.2784)).toInt());
-    print(image2.xOffset);
+
     final mergedImage = im.Image(image1.width,image1.height);
     // var dX = image1.width/2;
     // var dY = image1.height/2;
     var dX = (image1.width - image2.width)/2 ;
     var dY = (image1.height - image2.height )/2 ;
-    print(dX);
-    print(dY);
+  
     copyInto(mergedImage, image1, blend : true);
     copyInto(mergedImage, image2, dstX: dX.toInt(), dstY:dY.toInt(),srcX: 0, srcY: 0, blend:true);
 
@@ -180,8 +187,29 @@ return file;
 	   final res = await _imageSaver.saveImages(
 		imageBytes: bytesList,
 	   );
-     print(res);  
-  
+     if(res){
+       Fluttertoast.showToast(
+        msg: "Image Downloaded",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green[300],
+        textColor: Colors.white,
+        fontSize: 14.0
+      );
+     }
+    //  else{
+    //     Fluttertoast.showToast(
+    //     msg: "Couldn't download",
+    //     toastLength: Toast.LENGTH_SHORT,
+    //     gravity: ToastGravity.CENTER,
+    //     timeInSecForIosWeb: 1,
+    //     backgroundColor: Colors.brown[300],
+    //     textColor: Colors.white,
+    //     fontSize: 16.0
+    //   );
+    //  } 
+  print(res);
  
   }
 
@@ -192,9 +220,7 @@ return file;
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     var orientation = MediaQuery.of(context).orientation;
-    print(height);
-    print(width);
-
+  
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -202,7 +228,7 @@ return file;
             children: <Widget>[
               Container(
                 padding: EdgeInsets.all(10),
-                height: height*0.12,
+                height: orientation==Orientation.portrait? height*0.12: height*0.26,
                 width: width,
                 decoration: BoxDecoration(
                   image:DecorationImage(
@@ -219,20 +245,20 @@ return file;
                          style: TextStyle(
                          fontFamily: "Acme",
                          color: Colors.white,
-                         fontSize: height*0.05
+                         fontSize: orientation==Orientation.portrait? height*0.05:height*0.1,
                        ),),
                         TextSpan(text: "(Identify golden ratio in an image) ",
                          style: TextStyle(
                          fontFamily: "Acme",
                          color: Colors.white,
-                         fontSize: height*0.027
+                         fontSize:orientation==Orientation.portrait? height*0.027:height*0.06,
                        ),),
                       ],
                     ),
                   ),
                 ),
               ),
-              SizedBox(height:height*0.015),
+              SizedBox(height: orientation==Orientation.portrait? height*0.015:height*0.05),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal:10,vertical: 10),
                 margin: const EdgeInsets.symmetric(horizontal:10),
@@ -241,14 +267,14 @@ return file;
                   ),
                 child: Text("Upload an image and check the proportions with a fibonacci golden spiral overlay 🌀",
                 style: TextStyle(
-                    fontSize: height*0.027
+                    fontSize:orientation==Orientation.portrait? height*0.027:height*0.05,
                     ),
                 ),
               ),
               SizedBox(height:20),
               Container(
-                width:height*0.3*1.618,
-                height: height*0.3,
+                width:orientation==Orientation.portrait? height*0.3*1.618: height*0.72*1.618,
+                height:orientation==Orientation.portrait?  height*0.3: height*0.72,
                 child: GestureDetector(
                     child: Card(
                     color: Colors.white,
@@ -256,8 +282,8 @@ return file;
                     Stack(
                       children: <Widget>[
                         Container(
-                          width:height*0.3*1.618,
-                          height: height*0.3,
+                          width:orientation==Orientation.portrait? height*0.3*1.618: height*0.72*1.618,
+                          height:orientation==Orientation.portrait?  height*0.3:height*0.72,
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: FileImage(image),
@@ -266,11 +292,11 @@ return file;
                           ),
                         ),
                         Positioned(
-                          top:top,
-                          left: left,
+                          top:0,
+                          left: 0,
                           child: Container(
-                            height: height*0.3,
-                            width: height*0.3*1.618,
+                            height: orientation==Orientation.portrait? height*0.3: height*0.72,
+                            width:orientation==Orientation.portrait?  height*0.3*1.618: height*0.72*1.618,
                             child: ClipRect(
                             child: PhotoView(
                             controller: photoViewController,
@@ -324,19 +350,19 @@ return file;
               ),
               SizedBox(height: 30,),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment:orientation==Orientation.portrait? MainAxisAlignment.spaceAround: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   FlatButton.icon
-                  (onPressed:()=>downloadImage(), 
+                  (onPressed:()=>downloadImage(context), 
                   color: mat.Color.fromRGBO(118, 110, 125,1),
-                  padding: EdgeInsets.symmetric(vertical:15,horizontal:6),
+                  padding: orientation==Orientation.portrait?EdgeInsets.symmetric(vertical:15,horizontal:6):EdgeInsets.symmetric(vertical:15,horizontal:10),
                   icon: Icon(Icons.file_download, size:20, color:Colors.white), 
                   label: Text("Download Image", style:TextStyle(fontSize: 17, color: Colors.white))
                   ),
                   FlatButton.icon
                   (onPressed:()=> upload(context), 
                   color: mat.Color.fromRGBO(226, 103, 67,1),
-                  padding: EdgeInsets.symmetric(vertical:15,horizontal:15),
+                  padding: orientation==Orientation.portrait?EdgeInsets.symmetric(vertical:15,horizontal:15):EdgeInsets.symmetric(vertical:15,horizontal:18),
                   icon: Icon(Icons.file_upload, size:20, color:Colors.white), 
                   label: Text("Upload Image", style:TextStyle(fontSize: 17 ,color: Colors.white))
                   )
@@ -352,27 +378,12 @@ return file;
                 ),
                 onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Calculator())),
               ),
-              scaleInfo(),
+              SizedBox(height: orientation==Orientation.portrait?5:20,)
             ],
           ),
         ),
       ),
     );
   }
-
-  StreamBuilder<PhotoViewControllerValue> scaleInfo(){
-  return StreamBuilder(
-    stream: photoViewController.outputStateStream,
-    builder: (BuildContext context,AsyncSnapshot<PhotoViewControllerValue> snapshot){
-      if(!snapshot.hasData) {
-      return Container();}
-      print("Scale is ${snapshot.data.scale}");
-      print("Rotation is ${snapshot.data.rotation}");
-      print("Focus point is ${snapshot.data.rotationFocusPoint}");
-      print("Position is ${snapshot.data.position}");
-      return Container();
-    },
-  );
-}
 }
 

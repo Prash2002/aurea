@@ -5,9 +5,12 @@ class GenButton extends StatelessWidget {
   GenButton(this.title);
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    var orientation = MediaQuery.of(context).orientation;
     return Container(
-      height: 40,
-      width: 100,
+      height: orientation==Orientation.portrait? height*0.052:height*0.11,
+      width: orientation==Orientation.portrait?width*0.28:width*0.16,
       padding: EdgeInsets.all(8),
       margin: EdgeInsets.only(right:10),
       decoration: BoxDecoration(
