@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:aurea/screens/login.dart';
 import 'package:aurea/screens/swipePages.dart';
 import 'package:flutter/material.dart';
 
