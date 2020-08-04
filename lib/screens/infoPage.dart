@@ -75,7 +75,7 @@ class _InfoPageState extends State<InfoPage> {
               ),
               SizedBox(height:60),
               Container(
-                height: height-60,
+                height: orientation==Orientation.portrait?height-60:height*1.3,
                 width: width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -85,7 +85,7 @@ class _InfoPageState extends State<InfoPage> {
                 ),
                 child: Center(
                   child: Container(
-                  height: height*0.7,
+                  height:orientation==Orientation.portrait? height*0.7:height*1.1,
                   width: width*0.9,
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.9),
@@ -102,7 +102,7 @@ class _InfoPageState extends State<InfoPage> {
                         border: Border.all(width: 1)
                       ),
                       child: SvgPicture.network("https://www.mathsisfun.com/numbers/images/golden-ratio.svg",
-                      height: height*0.31,
+                      height:orientation==Orientation.portrait? height*0.31:height*0.5,
                       ),
                     ),
                     Container(
@@ -125,7 +125,7 @@ class _InfoPageState extends State<InfoPage> {
                 ),
               ),
               Container(
-                height: height*1.3,
+                height:orientation==Orientation.portrait? height*1.3:height*2.3,
                 width: width,
                  decoration: BoxDecoration(
                   image: DecorationImage(
@@ -206,7 +206,7 @@ class _InfoPageState extends State<InfoPage> {
                 ),
               ),
               Container(
-                height: height-80,
+                height: orientation==Orientation.portrait?height-80:height*1.4,
                 width: width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -216,14 +216,14 @@ class _InfoPageState extends State<InfoPage> {
                 ),
                 child: Center(
                   child: Container(
-                    height: height*0.75,
+                    height:orientation==Orientation.portrait? height*0.75:height*1.1,
                     width: width*0.9,
                     padding: EdgeInsets.all(10),
                     color: Color.fromRGBO(255, 255, 199,0.85),
                     child: Column(
                       children: <Widget>[
                     Image.network("https://he-s3.s3.amazonaws.com/media/uploads/cb96336.gif",
-                     height: height*0.25, width: double.infinity,fit: BoxFit.contain,
+                     height: orientation==Orientation.portrait?height*0.25:height*0.5, width: double.infinity,fit: BoxFit.contain,
                       ),
                       Text("The golden ratio is best approximated by the famous 'Fibonacci numbers'. Fibonacci numbers are a never-ending sequence starting with 0 and 1 and continuing by adding the previous two numbers. The next numbers in the Fibonacci sequence, for instance, are 1, 2, 3, and 5.\n The ratios of sequential Fibonacci numbers (2/1, 3/2, 5/3, etc.) approach the golden ratio. In fact, the higher the Fibonacci numbers, the closer their relationship is to 1.618.",
                       style: TextStyle(fontSize: 19),
@@ -234,7 +234,7 @@ class _InfoPageState extends State<InfoPage> {
                 ),
               ),
               Container(
-                 height: height - 80,
+                 height:orientation==Orientation.portrait? height - 80:height*1.8,
                 width: width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -244,13 +244,13 @@ class _InfoPageState extends State<InfoPage> {
                 ),
                 child: Center(
                   child: Container(
-                    height: height*0.8,
+                    height: orientation==Orientation.portrait?height*0.8:height*1.48,
                     width: width*0.9,
                     color: Colors.white.withOpacity(0.75),
                     child: Column(
                       children: <Widget>[
                         Image.network("https://upload.wikimedia.org/wikipedia/commons/e/e9/GoldenSpiralLogarithmic_color_in.gif",
-                        height: height*0.25, fit: BoxFit.cover, width: double.infinity,
+                        height:orientation==Orientation.portrait? height*0.25:height*0.5, fit: BoxFit.cover, width: double.infinity,
                         ),
                       
                         Padding(
@@ -270,7 +270,7 @@ class _InfoPageState extends State<InfoPage> {
                         // height: 200, fit: BoxFit.cover, width: double.infinity,
                         // )
                          Image.network("https://media1.giphy.com/media/Up8GmvOMbSdvJWvhgI/giphy.gif",
-                        height: height*0.25, fit: BoxFit.cover, width: double.infinity,
+                        height:orientation==Orientation.portrait? height*0.25:height*0.5, fit: BoxFit.cover, width: double.infinity,
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
