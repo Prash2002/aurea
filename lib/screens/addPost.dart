@@ -1,6 +1,10 @@
+import 'package:aurea/models/user_model.dart';
+import 'package:aurea/screens/uploadPost.dart';
 import 'package:flutter/material.dart';
 
 class AddPost extends StatefulWidget {
+  final User currentUser;
+  AddPost({this.currentUser});
   @override
   _AddPostState createState() => _AddPostState();
 }
@@ -20,7 +24,7 @@ class _AddPostState extends State<AddPost> {
           children: <Widget>[
             FlatButton(
               onPressed: (){
-                //  Navigator.push(context, MaterialPageRoute(builder: (context)=>Category()));
+                 Navigator.push(context, MaterialPageRoute(builder: (context)=>UploadPost(currentUser: widget.currentUser)));
               },
               color: Color.fromRGBO(56, 173, 169,1),
               child: Padding(
