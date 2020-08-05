@@ -21,7 +21,7 @@ class _ExamplePageState extends State<ExamplePage> {
     height: height*0.9,
     child: FlatButton(
       onPressed: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>Category(list: item.list, color: item.color,)));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>Category(list: item.list, color: item.color, bgimage: item.bgimage)));
       },
       child: Container(
       margin: EdgeInsets.all(5.0),

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class Category extends StatefulWidget {
   final List<Example> list;
   final Color color;
-  const Category({this.list, this.color});
+  final String bgimage;
+  const Category({this.list, this.color, this.bgimage});
   @override
   _CategoryState createState() => _CategoryState();
 }
@@ -30,7 +31,10 @@ class _CategoryState extends State<Category> {
               height: height,
                decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage('https://as1.ftcdn.net/jpg/02/20/76/28/500_F_220762865_x44kxk0IN1PJeJlAYXuXNcjh9hYOcdlQ.jpg'),
+                    image: NetworkImage(
+                      // 'https://as1.ftcdn.net/jpg/02/20/76/28/500_F_220762865_x44kxk0IN1PJeJlAYXuXNcjh9hYOcdlQ.jpg'
+                      widget.bgimage,
+                      ),
                     fit:BoxFit.cover,
                     repeat: ImageRepeat.repeat
                   ),
