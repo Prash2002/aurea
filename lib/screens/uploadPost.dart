@@ -95,7 +95,7 @@ class _UploadPostState extends State<UploadPost> {
                   SnackBar snackbar = SnackBar(content: Text('Post Uploaded :)'),);
                   skey.currentState.showSnackBar(snackbar);
                   Timer(Duration(seconds: 5),(){
-                    print('posted');
+                    // print('posted');
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>Home(currentUser: widget.currentUser)));
                   });
                 }
