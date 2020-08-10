@@ -57,8 +57,11 @@ class _ForumState extends State<Forum> {
               results.add(result);
             });
             print(results);
-            return ListView(
-              children: results,
+            return Container(
+              // color: Colors.black,
+              child: ListView(
+                children: results,
+              ),
             );
             }
             ),

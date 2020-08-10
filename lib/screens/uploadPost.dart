@@ -150,16 +150,20 @@ Future<String> uploadFile(File imageFile) async {
                 _image,
               )
               :
-              FlatButton.icon(
-                onPressed: () => chooseFromGallery(), 
-                label: Text('Choose From Gallery'),
-                icon: Icon(Icons.photo_library)
-                ),
+              Row(
+                children: <Widget>[
+                  FlatButton.icon(
+                    onPressed: () => chooseFromGallery(), 
+                    label: Text('Choose From Gallery'),
+                    icon: Icon(Icons.photo_library)
+                    ),
                 FlatButton.icon(
                 onPressed: () => null, 
                 label: Text('Create an Image'),
                 icon: Icon(Icons.photo_camera)
                 ),
+                ],
+              ),
               SizedBox(
                 height: height*0.025,
               ),
