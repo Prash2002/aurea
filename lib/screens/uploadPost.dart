@@ -150,31 +150,16 @@ Future<String> uploadFile(File imageFile) async {
                 _image,
               )
               :
-              FlatButton(
+              FlatButton.icon(
                 onPressed: () => chooseFromGallery(), 
-                child: Text('Choose From Gallery')
+                label: Text('Choose From Gallery'),
+                icon: Icon(Icons.photo_library)
                 ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal:16.0, vertical: 8.0),
-              //   child: TextFormField(
-              //     decoration: InputDecoration(
-              //       labelText: "Enter Description",
-              //           fillColor: Colors.white,
-              //           border: new OutlineInputBorder(
-              //             borderRadius: new BorderRadius.circular(25.0),
-              //             borderSide: new BorderSide(
-              //           ),
-              //         ),
-              //     ),
-              //     onChanged: (cap){
-              //       setState((){
-              //         description = cap;
-              //         print(description);
-              //       });
-              //     },
-              //     maxLines: 7 ,
-              //   ),
-              // ),
+                FlatButton.icon(
+                onPressed: () => null, 
+                label: Text('Create an Image'),
+                icon: Icon(Icons.photo_camera)
+                ),
               SizedBox(
                 height: height*0.025,
               ),
@@ -186,7 +171,6 @@ Future<String> uploadFile(File imageFile) async {
                   child: Text(
                     'Post'.toUpperCase(),
                     style: TextStyle(
-                      // color:Color.fromRGBO(253,237,203,1),
                       fontSize: 22.0
                     ),
                   ),

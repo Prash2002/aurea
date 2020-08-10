@@ -20,7 +20,7 @@ class _AddPostState extends State<AddPost> {
           child: Scaffold(
         body: Center(
           child: Container(
-            width: width,
+            // width: width,
             height: height,
             color: Color.fromRGBO(253,237,203,1),
             child: SingleChildScrollView(
@@ -30,7 +30,7 @@ class _AddPostState extends State<AddPost> {
                 children: <Widget>[
                   
                   SizedBox(
-                    height: height* 0.05,
+                    height: height* 0.15,
                   ),
                   FlatButton(
                     onPressed: (){
@@ -53,7 +53,9 @@ class _AddPostState extends State<AddPost> {
                   SizedBox(
                     height: height* 0.05,
                   ),
-                  Image.asset('assets/images/upload.png'),
+                  Image.asset('assets/images/upload.png',
+                    height: height*0.4,
+                  ),
                 ],
               ),
             )
