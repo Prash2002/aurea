@@ -9,10 +9,12 @@ class Post{
   String userPhoto;
   String ownerId;
   Timestamp timestamp;
-  // Map likes;
+  Map likes;
+  int likesCount;
 
   Post({
     this.caption ,
+    this.likes,
     // this.description ,
     this.id,
     this.imageUrl ,
@@ -20,10 +22,11 @@ class Post{
     this.userPhoto,
     this.ownerId,
     this.timestamp,
+    this.likesCount
   });
   
   final CollectionReference postCollection = Firestore.instance.collection('posts');
-
+  
    factory Post.fromDocument(DocumentSnapshot doc){
      return Post(
        caption: doc['caption'],
@@ -33,7 +36,8 @@ class Post{
        userPhoto: doc['userPhoto'],
        ownerId: doc['ownerId'],
        timestamp: doc['timestamp'],
-      //  id: doc['id']
+       likes: doc['likes'],
+       id: doc['id']
      );
    }
    addDocument(Post post) async {

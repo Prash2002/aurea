@@ -5,16 +5,89 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class PostScreen extends StatefulWidget {
   final Post post;
-
-  PostScreen(this.post);
+  final String currentUserId;
+  PostScreen(this.post, this.currentUserId);
 
   @override
   _PostScreenState createState() => _PostScreenState();
 }
 
 class _PostScreenState extends State<PostScreen> {
+
+
+   int getLikesCount(likes){
+    if(likes == null) {
+      return 0;
+    }
+    int count =0;
+    likes.values.forEach((val){
+      if (val== true){
+        count +=1;
+      }
+    });
+    return count;
+   }
+  int likesCount ;
+  // bool isLiked;
+  @override
+  void initState() {
+    super.initState();
+    likesCount = getLikesCount(widget.post.likes);
+  }
+  final CollectionReference postCollection = Firestore.instance.collection('posts');
+  // bool isLiked = widget.post.likes[widget.currentUserId]??false;
   @override
   Widget build(BuildContext context) {
+    bool isLiked =  widget.post.likes[widget.currentUserId]== true;
+    
+    handleLike(){
+      bool _isLiked = widget.post.likes[widget.currentUserId]== true;
+      // setState(() {
+      // if(isLiked){
+      //   likesCount--;
+      //   isLiked = false;
+      // }
+      // // isLiked = !isLiked;
+      // else{
+      // print(isLiked);
+      //   likesCount++;
+      //   isLiked = true;
+      // }
+      // // print("liked");
+      // });
+      print(widget.post.likes[widget.currentUserId]);
+
+  if(_isLiked){
+    postCollection
+      .document(widget.post.id)
+      .updateData({
+        'likes.${widget.currentUserId}' :false
+      });
+  //     removeLikeFromActivityFeed();
+    setState(() {
+      likesCount -=1;
+      isLiked = false;
+      // _isLiked = false;
+      widget.post.likes[widget.currentUserId]= false;
+      // print()
+
+    });
+  }
+  else if(!_isLiked){
+    postCollection
+      .document(widget.post.id)
+      .updateData({
+        'likes.${widget.currentUserId}' :true
+      });
+    //   addLikeToActivityFeed();
+    setState(() {
+      likesCount +=1;
+      isLiked = true;
+      widget.post.likes[widget.currentUserId]= true;
+      // showHeart = true;
+    });
+
+    }}
     return Padding(
         padding: const EdgeInsets.all(18.0),
       child: Container(
@@ -47,11 +120,13 @@ class _PostScreenState extends State<PostScreen> {
               Row(
                 children: <Widget>[
                   IconButton(
-                    icon: Icon(Icons.favorite_border,
+                    icon: Icon(
+                      isLiked? Icons.favorite : Icons.favorite_border,
                       color: Colors.red,
                     ),
-                    onPressed: (){},
+                    onPressed: () => handleLike()
                   ),
+                  Text(likesCount.toString()),
                   IconButton(
                     icon: Icon(Icons.comment,
                       color: Colors.grey[700],

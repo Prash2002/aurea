@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
            ExamplePage(),
            AddPost(currentUser: widget.currentUser),
            Interactive(),
-           Forum()
+           Forum(currentUser: widget.currentUser)
          ],
          controller:pageController,
          physics: NeverScrollableScrollPhysics(),

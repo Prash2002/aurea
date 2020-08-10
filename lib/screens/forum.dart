@@ -1,9 +1,12 @@
 import 'package:aurea/models/post_model.dart';
+import 'package:aurea/models/user_model.dart';
 import 'package:aurea/screens/posts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Forum extends StatefulWidget {
+  final User currentUser;
+  Forum({this.currentUser});
   @override
   _ForumState createState() => _ForumState();
 }
@@ -44,7 +47,7 @@ class _ForumState extends State<Forum> {
             List<PostScreen> results = [];
             snapshot.data.documents.forEach((doc) {
               Post post = Post.fromDocument(doc);
-            PostScreen result = PostScreen( post
+            PostScreen result = PostScreen( post, widget.currentUser.id
                   // post.name,
                   // "Offer ends in ${offer.endDate.toDate().difference(now).inDays} Days",
                   // "assets/logo.jpg",
