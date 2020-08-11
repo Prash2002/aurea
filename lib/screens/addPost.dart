@@ -20,7 +20,7 @@ class _AddPostState extends State<AddPost> {
           child: Scaffold(
         body: Center(
           child: Container(
-            // width: width,
+            width: width,
             height: height,
             color: Color.fromRGBO(253,237,203,1),
             child: SingleChildScrollView(
