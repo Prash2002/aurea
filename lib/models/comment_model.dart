@@ -25,8 +25,6 @@ class Comment{
     this.likesCount
   });
   
-  final CollectionReference commentCollection = Firestore.instance.collection('comments');
-  
    factory Comment.fromDocument(DocumentSnapshot doc){
      return Comment(
        comment: doc['comment'],
@@ -41,6 +39,7 @@ class Comment{
      );
    }
    addDocument(Comment comment) async {
+     final CollectionReference commentCollection = Firestore.instance.collection('posts').document(postId).collection('comments');
      await commentCollection
       // .document(post.ownerId).collection('userPost')
       .document(comment.commentId).setData({

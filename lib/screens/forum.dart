@@ -1,6 +1,6 @@
 import 'package:aurea/models/post_model.dart';
 import 'package:aurea/models/user_model.dart';
-import 'package:aurea/screens/posts.dart';
+import 'package:aurea/widgets/post.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

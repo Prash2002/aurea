@@ -12,7 +12,7 @@ class User{
 
   factory User.fromDocument(DocumentSnapshot doc){
     return User(
-      // id: doc['id'],
+      id: doc['id'],
       name: doc['name'],
       email: doc['email'],
       photoUrl: doc['photoUrl']
@@ -21,7 +21,7 @@ class User{
 
   addDocument(User user) async {
      await userCollection.document(user.id).setData({
-      // "id":user.id,
+      "id":user.id,
       "name" : user.name,
       "email": user.email,
       "photoUrl": user.photoUrl,
