@@ -47,16 +47,7 @@ class _ForumState extends State<Forum> {
             List<PostScreen> results = [];
             snapshot.data.documents.forEach((doc) {
               Post post = Post.fromDocument(doc);
-            PostScreen result = PostScreen( post, widget.currentUser.id
-                  // post.name,
-                  // "Offer ends in ${offer.endDate.toDate().difference(now).inDays} Days",
-                  // "assets/logo.jpg",
-                  // post.photoUrl,
-                  // post.startDate.toDate().toString().split(" ")[0] +
-                  //     " to " +
-                  //     post.endDate.toDate().toString().split(" ")[0],
-                  // post.description
-                  );
+            PostScreen result = PostScreen( post, widget.currentUser.id );
               results.add(result);
             });
             print(results);

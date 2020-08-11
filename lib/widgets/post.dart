@@ -1,4 +1,5 @@
 import 'package:aurea/models/post_model.dart';
+import 'package:aurea/screens/commentScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -131,7 +132,9 @@ class _PostScreenState extends State<PostScreen> {
                     icon: Icon(Icons.comment,
                       color: Colors.grey[700],
                     ),
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CommentScreen(currentUserId: widget.currentUserId, postId: widget.post.id,)));
+                    },
                   ),
                 ],
               ),

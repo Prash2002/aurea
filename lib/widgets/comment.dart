@@ -3,16 +3,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class CommentScreen extends StatefulWidget {
+class EachComment extends StatefulWidget {
   final Comment comment;
   final String currentUserId;
-  CommentScreen(this.comment, this.currentUserId);
+  EachComment(this.comment, this.currentUserId);
 
   @override
-  _CommentScreenState createState() => _CommentScreenState();
+  _EachCommentState createState() => _EachCommentState();
 }
 
-class _CommentScreenState extends State<CommentScreen> {
+class _EachCommentState extends State<EachComment> {
 
 
    int getLikesCount(likes){
