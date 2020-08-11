@@ -47,7 +47,7 @@ class _ForumState extends State<Forum> {
             List<PostScreen> results = [];
             snapshot.data.documents.forEach((doc) {
               Post post = Post.fromDocument(doc);
-            PostScreen result = PostScreen( post, widget.currentUser.id );
+            PostScreen result = PostScreen( post, widget.currentUser );
               results.add(result);
             });
             print(results);

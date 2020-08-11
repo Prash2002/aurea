@@ -68,50 +68,74 @@ class _EachCommentState extends State<EachComment> {
     });
 
     }}
-    return Padding(
-        padding: const EdgeInsets.all(18.0),
-      child: Container(
-        color: Colors.white54,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              ListTile(
-                isThreeLine: true,
-                leading: CircleAvatar(
-                        backgroundImage: NetworkImage(widget.comment.userPhoto),
-                        radius: 25,
-                      ),
-                title: Column(
-                  children: <Widget>[
-                    Text(
-                       widget.comment.username,
-                      ),
-                       Text(
-                    timeago.format(widget.comment.timestamp.toDate())
-                    ),
-                  ],
+    return Container(
+      color: Colors.white54,
+        child: Row(
+           children: <Widget>[
+          CircleAvatar(
+                  backgroundImage: NetworkImage(widget.comment.userPhoto),
+                  radius: 25,
                 ),
-                  subtitle: Text(
-                    // timeago.format(widget.comment.timestamp.toDate())
-                    widget.comment.comment,
-                    ),
-                    trailing:  Column(
-                      children: <Widget>[
-                        IconButton(
-                        icon: Icon(
-                          isLiked? Icons.favorite : Icons.favorite_border,
-                          color: Colors.red,
-                        ),
-                        onPressed: () => handleLike()
+          //  Column(
+          //   children: <Widget>[
+          //     Text(
+          //        widget.comment.username,
+          //       ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+               children: <Widget>[
+                 Text(
+                   widget.comment.username,
+                   style: TextStyle(
+                     fontWeight: FontWeight.w600,
+                     fontSize: 17.0
+                   ),
+                 ),
+                Text(
+                  timeago.format(widget.comment.timestamp.toDate()),
+                  style: TextStyle(
+                    color: Colors.grey,
+                    //  fontWeight: FontWeight.w200,
+                     fontSize: 14.0
+                   ),
+                ),  
+                Text(
+                  // timeago.format(widget.comment.timestamp.toDate())
+                  widget.comment.comment,
+                  style: TextStyle(
+                    color: Colors.grey[800],
+                    //  fontWeight: FontWeight.w200,
+                     fontSize: 14.0
+                   ),
+                     // overflow: TextOverflow.ellipsis
                   ),
-                  
-                  Text(likesCount.toString()),
-                      ],
-                    ), 
+                ],
+                     ),
+            ),
+                 ),
+          //   ],
+          // ),
+               Column(
+                  children: <Widget>[
+                    IconButton(
+                    icon: Icon(
+                      isLiked? Icons.favorite : Icons.favorite_border,
+                      color: Colors.red,
+                    ),
+                    onPressed: () => handleLike()
+            ),
+            
+            Text(likesCount.toString(),
+              style: TextStyle(
+                  fontSize: 14.0,
               ),
-              ],
-        ),
-      ),
+            ),
+                  ],
+              ),
+            ] ),
     );
   }
 }

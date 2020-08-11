@@ -1,4 +1,5 @@
 import 'package:aurea/models/post_model.dart';
+import 'package:aurea/models/user_model.dart';
 import 'package:aurea/screens/commentScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,8 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class PostScreen extends StatefulWidget {
   final Post post;
-  final String currentUserId;
-  PostScreen(this.post, this.currentUserId);
+  final User currentUser;
+  PostScreen(this.post, this.currentUser);
 
   @override
   _PostScreenState createState() => _PostScreenState();
@@ -39,10 +40,10 @@ class _PostScreenState extends State<PostScreen> {
   // bool isLiked = widget.post.likes[widget.currentUserId]??false;
   @override
   Widget build(BuildContext context) {
-    bool isLiked =  widget.post.likes[widget.currentUserId]== true;
+    bool isLiked =  widget.post.likes[widget.currentUser.id]== true;
     
     handleLike(){
-      bool _isLiked = widget.post.likes[widget.currentUserId]== true;
+      bool _isLiked = widget.post.likes[widget.currentUser.id]== true;
       // setState(() {
       // if(isLiked){
       //   likesCount--;
@@ -56,20 +57,20 @@ class _PostScreenState extends State<PostScreen> {
       // }
       // // print("liked");
       // });
-      print(widget.post.likes[widget.currentUserId]);
+      print(widget.post.likes[widget.currentUser.id]);
 
   if(_isLiked){
     postCollection
       .document(widget.post.id)
       .updateData({
-        'likes.${widget.currentUserId}' :false
+        'likes.${widget.currentUser.id}' :false
       });
   //     removeLikeFromActivityFeed();
     setState(() {
       likesCount -=1;
       isLiked = false;
       // _isLiked = false;
-      widget.post.likes[widget.currentUserId]= false;
+      widget.post.likes[widget.currentUser.id]= false;
       // print()
 
     });
@@ -78,13 +79,13 @@ class _PostScreenState extends State<PostScreen> {
     postCollection
       .document(widget.post.id)
       .updateData({
-        'likes.${widget.currentUserId}' :true
+        'likes.${widget.currentUser.id}' :true
       });
     //   addLikeToActivityFeed();
     setState(() {
       likesCount +=1;
       isLiked = true;
-      widget.post.likes[widget.currentUserId]= true;
+      widget.post.likes[widget.currentUser.id]= true;
       // showHeart = true;
     });
 
@@ -133,7 +134,7 @@ class _PostScreenState extends State<PostScreen> {
                       color: Colors.grey[700],
                     ),
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CommentScreen(currentUserId: widget.currentUserId, postId: widget.post.id,)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CommentScreen(currentUser: widget.currentUser, postId: widget.post.id,)));
                     },
                   ),
                 ],

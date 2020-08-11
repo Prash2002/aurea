@@ -39,7 +39,7 @@ class Comment{
      );
    }
    addDocument(Comment comment) async {
-     final CollectionReference commentCollection = Firestore.instance.collection('posts').document(postId).collection('comments');
+     final CollectionReference commentCollection = Firestore.instance.collection('posts').document(comment.postId).collection('comments');
      await commentCollection
       // .document(post.ownerId).collection('userPost')
       .document(comment.commentId).setData({
