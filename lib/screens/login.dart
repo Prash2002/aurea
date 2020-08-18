@@ -19,7 +19,6 @@ class _LoginState extends State<Login> {
  
  Future<User> signInWithGoogle() async {
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-    print("Sign in Passed");
     final GoogleSignInAuthentication googleSignInAuthentication =
     await googleSignInAccount.authentication;
 

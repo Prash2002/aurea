@@ -12,7 +12,6 @@ class AddPost extends StatefulWidget {
 class _AddPostState extends State<AddPost> {
   @override
   Widget build(BuildContext context) {
-    
   var orientation = MediaQuery.of(context).orientation;
   var width= MediaQuery.of(context).size.width;
   var height= MediaQuery.of(context).size.height;
