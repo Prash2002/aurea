@@ -84,9 +84,6 @@ List<Example> tech = [
   Example(imageUrl: 'assets/images/golden-ratio/tech/pepsi.jpg', title: 'Pepsi'),
   Example(imageUrl: 'assets/images/golden-ratio/tech/toyota.png', title: 'Toyota'),
   Example(imageUrl: 'assets/images/golden-ratio/tech/twitter.jpg', title: 'Twitter'),
-  // Example(imageUrl: 'assets/images/golden-ratio/tech/', title: ''),
-  // Example(imageUrl: 'assets/images/golden-ratio/tech/', title: ''),
-  // Example(imageUrl: 'assets/images/golden-ratio/tech/', title: ''),
 ];
 
 final List<Example> all = tech+human+meme+arch+nature+art;
