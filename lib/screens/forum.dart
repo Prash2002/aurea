@@ -25,7 +25,7 @@ class _ForumState extends State<Forum> {
             future: postsRef.getDocuments(),
             builder:  (context, snapshot) {
             if (!snapshot.hasData) {
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             }
             if(snapshot.data.documents.length == 0){
               print('Hi');

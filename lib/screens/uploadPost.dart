@@ -148,9 +148,12 @@ Future<String> uploadFile(File imageFile) async {
               _image!=null? 
               Image.file(
                 _image,
+                // height: height*0.5,
               )
               :
               Row(
+                
+            mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   FlatButton.icon(
                     onPressed: () => chooseFromGallery(), 

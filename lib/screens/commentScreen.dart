@@ -17,6 +17,7 @@ class _CommentScreenState extends State<CommentScreen> {
   String newComment='';
   String commentId = Uuid().v4();
   bool isUploading = false;
+  final skey = GlobalKey<ScaffoldState>();
 
 
   @override
@@ -26,8 +27,13 @@ class _CommentScreenState extends State<CommentScreen> {
   var height= MediaQuery.of(context).size.height;
   final CollectionReference commentCollection = Firestore.instance.collection('posts').document(widget.postId).collection('comments');
   handleComment() async {
-    //TODO: 
-    setState(() {
+    if(newComment.trim().length ==0 ){
+      print('nah');
+      SnackBar snackbar = SnackBar(content: Text('Please type a comment'),);
+      skey.currentState.showSnackBar(snackbar);
+    }
+    else{
+      setState(() {
      isUploading = true;
     });
     print("going to upload");
@@ -47,11 +53,14 @@ class _CommentScreenState extends State<CommentScreen> {
     setState(() {
       isUploading = false;
       commentId = Uuid().v4();
-      newComment = "";
+      // newComment = "";
    });
     print("commented");
   }
+  }
+  
     return Scaffold(
+      key: skey,
       appBar: AppBar(
         title: Text('comments')
       ),
@@ -62,7 +71,7 @@ class _CommentScreenState extends State<CommentScreen> {
                 stream: commentCollection.orderBy('timestamp').snapshots(),
                 builder: (context, snapshot){
                   if (!snapshot.hasData) {
-                        return CircularProgressIndicator();
+                        return Center(child: CircularProgressIndicator());
                       }
                       if(snapshot.data.documents.length == 0){
                         print('Hi');
@@ -77,7 +86,7 @@ class _CommentScreenState extends State<CommentScreen> {
                             ),
                             Image.network(
                               'https://image.freepik.com/free-vector/reviews-concept-landing-page_52683-18921.jpg',
-                                  height: height*0.4,
+                                  // height: height*0.4,
                                 ),
                           ],
                         );
