@@ -150,7 +150,6 @@ return file;
     }
     var orientation = MediaQuery.of(context).orientation;
     double scale = photoViewController.scale;
-    Offset offset = photoViewController.rotationFocusPoint;
     double rotate = photoViewController.rotation;
     
     final image1 = decodeImage(image.readAsBytesSync());
@@ -175,7 +174,6 @@ return file;
  
     final mergedfilename = new File(join(documentDirectory.path, "merged_image.jpg"));
 
-    final finalFile = mergedfilename.writeAsBytesSync(encodeJpg(mergedImage));
 
     final urls = [mergedfilename.path];
     List<Uint8List> bytesList = [];
@@ -209,7 +207,6 @@ return file;
     //     fontSize: 16.0
     //   );
     //  } 
-  print(res);
  
   }
 

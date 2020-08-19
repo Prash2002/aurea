@@ -90,10 +90,6 @@ class _InfoPageState extends State<InfoPage> {
                   width: width*0.9,
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.9),
-                    // image: DecorationImage(
-                    //   image: AssetImage("assets/images/info1.jpg"),
-                    //   fit: BoxFit.cover
-                    // ),
                   ),
                   child: Column(children: <Widget>[
                     Container(
@@ -260,16 +256,6 @@ class _InfoPageState extends State<InfoPage> {
                           style: TextStyle(fontSize: 18),
                           ),
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.symmetric(horizontal:10),
-                        //   child: Text("\nA mathematical method for exploring irrational numbers is to play a kind of game.The idea is that you have a flower, and you are trying to place seeds on the face of the flower in such a way that you can fit as many as possible.The best number to rotate the flower for optimal seed placement is the golden ratio, where the entire face gets covered more or less evenly without the seeds clustering in any one spot. ",
-                        //   style: TextStyle(fontSize: 18),
-                        //   ),
-                        // ),
-                        // Spacer(),
-                        // Image.network("https://thumbs.gfycat.com/VigilantHardAsiaticmouflon-max-1mb.gif",
-                        // height: 200, fit: BoxFit.cover, width: double.infinity,
-                        // )
                          Image.network("https://media1.giphy.com/media/Up8GmvOMbSdvJWvhgI/giphy.gif",
                         height:orientation==Orientation.portrait? height*0.25:height*0.5, fit: BoxFit.cover, width: double.infinity,
                         ),

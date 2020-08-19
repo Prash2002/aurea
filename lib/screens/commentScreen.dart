@@ -22,13 +22,9 @@ class _CommentScreenState extends State<CommentScreen> {
 
   @override
   Widget build(BuildContext context) {
-  var orientation = MediaQuery.of(context).orientation;
-  var width= MediaQuery.of(context).size.width;
-  var height= MediaQuery.of(context).size.height;
   final CollectionReference commentCollection = Firestore.instance.collection('posts').document(widget.postId).collection('comments');
   handleComment() async {
     if(newComment.trim().length ==0 ){
-      print('nah');
       SnackBar snackbar = SnackBar(content: Text('Please type a comment'),);
       skey.currentState.showSnackBar(snackbar);
     }
@@ -36,7 +32,6 @@ class _CommentScreenState extends State<CommentScreen> {
       setState(() {
      isUploading = true;
     });
-    print("going to upload");
     Comment comment = Comment(
       commentId: commentId,
       comment: newComment,
@@ -49,13 +44,10 @@ class _CommentScreenState extends State<CommentScreen> {
     await Comment().addDocument(
       comment
     );
-    print("uploaded");
     setState(() {
       isUploading = false;
       commentId = Uuid().v4();
-      // newComment = "";
    });
-    print("commented");
   }
   }
   
@@ -74,13 +66,11 @@ class _CommentScreenState extends State<CommentScreen> {
                         return Center(child: CircularProgressIndicator());
                       }
                       if(snapshot.data.documents.length == 0){
-                        print('Hi');
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text('No comments yet',
                               style: TextStyle(
-                                // color: Colors.pink[600],
                                 fontSize: 35.0,
                               ),
                             ),
@@ -97,10 +87,8 @@ class _CommentScreenState extends State<CommentScreen> {
                       EachComment result = EachComment( comment, widget.currentUser.id );
                         results.add(result);
                       });
-                      print(results);
                       return Container(
                         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                        // color: Colors.black,
                         child: ListView(
                           children: results,
                         ),

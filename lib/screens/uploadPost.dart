@@ -27,27 +27,17 @@ class _UploadPostState extends State<UploadPost> {
   bool isUploading = false;
 
 
-  // compressImage() async {
-  //     final tempDir = await getTemporaryDirectory();
-  //     final path = tempDir.path;
-  //     imageLib.Image image = imageLib.decodeImage(imageFile.readAsBytesSync());
-  //     var compressedImage = File('$path/img_$postId.jpg')..writeAsBytesSync(imageLib.encodeJpg(image, quality: 85));
-  //   }
 Future<String> uploadFile(File imageFile) async {
       StorageReference storageReference =
           FirebaseStorage.instance.ref().child('offer/$postId');
       StorageUploadTask uploadTask = storageReference.putFile(imageFile);
       await uploadTask.onComplete;
-      print('File Uploaded');
       String downloadUrl = await storageReference.getDownloadURL();
       return downloadUrl;
     }
 
 
   chooseFromGallery() async{
-    // File file = await ImagePicker.pickImage(
-      // source: ImageSource.gallery,
-      // ) ;
       final PickedFile file = await ImagePicker().getImage(
         source: ImageSource.gallery,
         );
@@ -58,7 +48,6 @@ Future<String> uploadFile(File imageFile) async {
 
   handleSubmit() async {
                   if(_image==null){
-                    print('Bitch! Image');
                     SnackBar snackbar = SnackBar(content: Text('Please choose an image'),);
                     skey.currentState.showSnackBar(snackbar);
                   }
@@ -72,7 +61,6 @@ Future<String> uploadFile(File imageFile) async {
                     Post post = Post(
                       id: postId,
                       caption : caption,
-                      // ID is googleId and not authentication id
                       ownerId : widget.currentUser.id,
                       username: widget.currentUser.name,
                       userPhoto: widget.currentUser.photoUrl,
@@ -80,16 +68,14 @@ Future<String> uploadFile(File imageFile) async {
                       imageUrl: imageUrl,
                     );
                     await Post().addDocument(post);
-                    print(post.ownerId);
                     setState(() {
                       isUploading = false;
                       postId = Uuid().v4();
                     });
 
-                    SnackBar snackbar = SnackBar(content: Text('Post Uploaded :)'),);
+                    SnackBar snackbar = SnackBar(content: Text('Post Uploaded!!'),);
                     skey.currentState.showSnackBar(snackbar);
                     Timer(Duration(seconds: 5),(){
-                      // print('posted');
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>Home(currentUser: widget.currentUser)));
                     });
                   }
@@ -98,8 +84,6 @@ Future<String> uploadFile(File imageFile) async {
 
   @override
   Widget build(BuildContext context) {
-    // var orientation = MediaQuery.of(context).orientation;
-    // var width= MediaQuery.of(context).size.width;
     var height= MediaQuery.of(context).size.height;
     return Scaffold(
       key: skey,
@@ -118,7 +102,6 @@ Future<String> uploadFile(File imageFile) async {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal:16.0, vertical: 8.0),
                 child: TextFormField(
-                  // autovalidate: true,
                   decoration: InputDecoration(
                     labelText: "Enter Caption",
                         fillColor: Colors.white,
@@ -131,7 +114,6 @@ Future<String> uploadFile(File imageFile) async {
                    onChanged: (cap){
                     setState((){
                       caption = cap;
-                      print(caption);
                     });
                   },
                   validator: (val){
@@ -151,22 +133,22 @@ Future<String> uploadFile(File imageFile) async {
                 // height: height*0.5,
               )
               :
-              Row(
+            //   Row(
                 
-            mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+            // mainAxisAlignment: MainAxisAlignment.center,
+            //     children: <Widget>[
                   FlatButton.icon(
                     onPressed: () => chooseFromGallery(), 
                     label: Text('Choose From Gallery'),
                     icon: Icon(Icons.photo_library)
                     ),
-                FlatButton.icon(
-                onPressed: () => null, 
-                label: Text('Create an Image'),
-                icon: Icon(Icons.photo_camera)
-                ),
-                ],
-              ),
+                // FlatButton.icon(
+                // onPressed: () => null, 
+                // label: Text('Create an Image'),
+                // icon: Icon(Icons.photo_camera)
+                // ),
+              //   ],
+              // ),
               SizedBox(
                 height: height*0.025,
               ),

@@ -16,8 +16,6 @@ class _ForumState extends State<Forum> {
   @override
   Widget build(BuildContext context) {
     
-  var orientation = MediaQuery.of(context).orientation;
-  var width= MediaQuery.of(context).size.width;
   var height= MediaQuery.of(context).size.height;
     return SafeArea(
         child: Scaffold(
@@ -28,7 +26,6 @@ class _ForumState extends State<Forum> {
               return Center(child: CircularProgressIndicator());
             }
             if(snapshot.data.documents.length == 0){
-              print('Hi');
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -50,9 +47,7 @@ class _ForumState extends State<Forum> {
             PostScreen result = PostScreen( post, widget.currentUser );
               results.add(result);
             });
-            print(results);
             return Container(
-              // color: Colors.black,
               child: ListView(
                 children: results,
               ),

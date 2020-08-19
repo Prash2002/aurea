@@ -145,9 +145,6 @@ List<Widget> widget = [
                     child: Column(children: <Widget>[
             Container(
                      width: width,
-                      // height: height*0.5,
-                    //  https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg
-                    //  https://image.freepik.com/free-vector/vintage-ornamental-flowers-background_52683-28040.jpg
                       decoration: BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage('https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg'),
@@ -160,9 +157,6 @@ List<Widget> widget = [
                    ),
                    Container(
                      width: width,
-                      // height: height,
-                    //  https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg
-                    //  https://image.freepik.com/free-vector/vintage-ornamental-flowers-background_52683-28040.jpg
                       decoration: BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage('https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg'),
@@ -172,14 +166,11 @@ List<Widget> widget = [
                    ),
            ],),
          ):
-          //for landscape
              Row(
                children: <Widget>[
                  Container(
                    width: width*0.5,
                     height: height,
-                  //  https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg
-                  //  https://image.freepik.com/free-vector/vintage-ornamental-flowers-background_52683-28040.jpg
                     decoration: BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage('https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg'),
@@ -196,8 +187,6 @@ List<Widget> widget = [
                  Container(
                    width: width*0.5,
                     height: height,
-                  //  https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg
-                  //  https://image.freepik.com/free-vector/vintage-ornamental-flowers-background_52683-28040.jpg
                     decoration: BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage('https://image.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg'),
