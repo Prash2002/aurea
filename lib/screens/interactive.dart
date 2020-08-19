@@ -245,13 +245,13 @@ return file;
                          style: TextStyle(
                          fontFamily: "Acme",
                          color: Colors.white,
-                         fontSize: orientation==Orientation.portrait? height*0.05:height*0.1,
+                         fontSize: orientation==Orientation.portrait? height*0.025:height*0.1,
                        ),),
                         TextSpan(text: "(Identify golden ratio in an image) ",
                          style: TextStyle(
                          fontFamily: "Acme",
                          color: Colors.white,
-                         fontSize:orientation==Orientation.portrait? height*0.027:height*0.06,
+                         fontSize:orientation==Orientation.portrait? height*0.015:height*0.06,
                        ),),
                       ],
                     ),
