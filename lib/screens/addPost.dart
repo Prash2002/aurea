@@ -1,4 +1,5 @@
 import 'package:aurea/models/user_model.dart';
+import 'package:aurea/screens/login.dart';
 import 'package:aurea/screens/uploadPost.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,10 @@ class AddPost extends StatefulWidget {
 }
 
 class _AddPostState extends State<AddPost> {
+  logout(BuildContext context) async {
+    await googleSignIn.signOut();
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+  }
   @override
   Widget build(BuildContext context) {
   var width= MediaQuery.of(context).size.width;
@@ -26,7 +31,33 @@ class _AddPostState extends State<AddPost> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right:5),
+                        child: PopupMenuButton(
+                          icon: Icon(Icons.more_horiz,size:30,color: Theme.of(context).primaryColor,),
+                          itemBuilder: (context) => [
+                          PopupMenuItem(
+                          child: FlatButton.icon(
+                          label:Text("Logout",style:TextStyle(fontSize:16,color: Colors.black87)),
+                          icon:Icon(Icons.exit_to_app,size:20),
+                          onPressed: ()=>logout(context)
+                        ),                      
+                ),
+                          PopupMenuItem(
+                            child: FlatButton.icon(
+                            label:Text("Cancel",style:TextStyle(fontSize:16,color: Colors.black87)),
+                            icon:Icon(Icons.cancel,size:20),
+                            onPressed: ()=>Navigator.pop(context)    
+                            ),
+                          ),
+                          ],
+                          ),
+                      ),
+                    ],
+                  ),
                   SizedBox(
                     height: height* 0.15,
                   ),
