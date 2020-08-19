@@ -30,49 +30,30 @@ class _PostScreenState extends State<PostScreen> {
     return count;
    }
   int likesCount ;
-  // bool isLiked;
   @override
   void initState() {
     super.initState();
     likesCount = getLikesCount(widget.post.likes);
   }
   final CollectionReference postCollection = Firestore.instance.collection('posts');
-  // bool isLiked = widget.post.likes[widget.currentUserId]??false;
   @override
   Widget build(BuildContext context) {
     bool isLiked =  widget.post.likes[widget.currentUser.id]== true;
     
     handleLike(){
       bool _isLiked = widget.post.likes[widget.currentUser.id]== true;
-      // setState(() {
-      // if(isLiked){
-      //   likesCount--;
-      //   isLiked = false;
-      // }
-      // // isLiked = !isLiked;
-      // else{
-      // print(isLiked);
-      //   likesCount++;
-      //   isLiked = true;
-      // }
-      // // print("liked");
-      // });
-      print(widget.post.likes[widget.currentUser.id]);
+      
 
   if(_isLiked){
     postCollection
       .document(widget.post.id)
       .updateData({
         'likes.${widget.currentUser.id}' :false
-      });
-  //     removeLikeFromActivityFeed();
-    setState(() {
+      });setState(() {
       likesCount -=1;
       isLiked = false;
-      // _isLiked = false;
       widget.post.likes[widget.currentUser.id]= false;
-      // print()
-
+      
     });
   }
   else if(!_isLiked){
@@ -81,12 +62,10 @@ class _PostScreenState extends State<PostScreen> {
       .updateData({
         'likes.${widget.currentUser.id}' :true
       });
-    //   addLikeToActivityFeed();
     setState(() {
       likesCount +=1;
       isLiked = true;
       widget.post.likes[widget.currentUser.id]= true;
-      // showHeart = true;
     });
 
     }}

@@ -16,5 +16,5 @@ List<ExCategory> categories = [
   ExCategory(name: 'Art', image: 'https://blog.singulart.com/wp-content/uploads/2019/08/tour_img-312981-148.jpg', list: art ,color: Colors.redAccent[100], bgimage: 'https://image.freepik.com/free-vector/dreamy-sky-with-pine-trees-watercolor-background_10126-884.jpg'),
   ExCategory(name: 'Human', image: 'https://golden-ratio.club/images/galleries/people/golden-ratio-nose-eyes.jpg', list: human,color: Colors.blue[200], bgimage: 'https://image.freepik.com/free-vector/dreamy-floral-background_53876-92903.jpg'),
   ExCategory(name: 'Memes', image: 'https://golden-ratio.club/images/galleries/memes/fawcett-fibonacci-spiral-hair.jpeg', list: meme ,color: Colors.green[200], bgimage: 'https://www.livemememaker.com/assets/templates/12.jpg'),
-  ExCategory(name: 'Techmology', image: 'https://golden-ratio.club/images/galleries/tech/golden-ratio-apple-logo.jpg', list: tech,color: Colors.lime[200], bgimage: 'https://as1.ftcdn.net/jpg/02/20/76/28/500_F_220762865_x44kxk0IN1PJeJlAYXuXNcjh9hYOcdlQ.jpg'),
+  ExCategory(name: 'Technology', image: 'https://golden-ratio.club/images/galleries/tech/golden-ratio-apple-logo.jpg', list: tech,color: Colors.lime[200], bgimage: 'https://as1.ftcdn.net/jpg/02/20/76/28/500_F_220762865_x44kxk0IN1PJeJlAYXuXNcjh9hYOcdlQ.jpg'),
 ];

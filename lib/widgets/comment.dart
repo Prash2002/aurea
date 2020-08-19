@@ -40,8 +40,6 @@ class _EachCommentState extends State<EachComment> {
     
     handleLike(){
       bool _isLiked = widget.comment.likes[widget.currentUserId]== true;
-      
-      print(widget.comment.likes[widget.currentUserId]);
       if(_isLiked){
         commentCollection
       .document(widget.comment.commentId)
@@ -76,11 +74,6 @@ class _EachCommentState extends State<EachComment> {
                   backgroundImage: NetworkImage(widget.comment.userPhoto),
                   radius: 25,
                 ),
-          //  Column(
-          //   children: <Widget>[
-          //     Text(
-          //        widget.comment.username,
-          //       ),
           Expanded(
             child: Padding(
               padding: EdgeInsets.all(8.0),
@@ -98,26 +91,20 @@ class _EachCommentState extends State<EachComment> {
                   timeago.format(widget.comment.timestamp.toDate()),
                   style: TextStyle(
                     color: Colors.grey,
-                    //  fontWeight: FontWeight.w200,
                      fontSize: 14.0
                    ),
                 ),  
                 Text(
-                  // timeago.format(widget.comment.timestamp.toDate())
                   widget.comment.comment,
                   style: TextStyle(
                     color: Colors.grey[800],
-                    //  fontWeight: FontWeight.w200,
                      fontSize: 14.0
                    ),
-                     // overflow: TextOverflow.ellipsis
                   ),
                 ],
                      ),
             ),
                  ),
-          //   ],
-          // ),
                Column(
                   children: <Widget>[
                     IconButton(
