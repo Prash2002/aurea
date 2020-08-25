@@ -45,6 +45,14 @@ Future<String> uploadFile(File imageFile) async {
           _image = File(file.path);
         });
   }
+  chooseFromCamera() async {
+    final PickedFile file = await ImagePicker().getImage(
+        source: ImageSource.camera,
+        );
+        setState((){
+          _image = File(file.path);
+        });
+  }
 
   handleSubmit() async {
                   if(_image==null){
@@ -133,22 +141,22 @@ Future<String> uploadFile(File imageFile) async {
                 // height: height*0.5,
               )
               :
-            //   Row(
+              Row(
                 
-            // mainAxisAlignment: MainAxisAlignment.center,
-            //     children: <Widget>[
+            mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
                   FlatButton.icon(
                     onPressed: () => chooseFromGallery(), 
                     label: Text('Choose From Gallery'),
                     icon: Icon(Icons.photo_library)
                     ),
-                // FlatButton.icon(
-                // onPressed: () => null, 
-                // label: Text('Create an Image'),
-                // icon: Icon(Icons.photo_camera)
-                // ),
-              //   ],
-              // ),
+                FlatButton.icon(
+                onPressed: () => chooseFromCamera(), 
+                label: Text('Create an Image'),
+                icon: Icon(Icons.photo_camera)
+                ),
+                ],
+              ),
               SizedBox(
                 height: height*0.025,
               ),
