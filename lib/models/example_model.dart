@@ -53,10 +53,10 @@ List<Example> human = [
   Example(imageUrl:'assets/images/golden-ratio/human/arm.jpg', title: 'Arm'),
   Example(imageUrl:'assets/images/golden-ratio/human/face.png', title: 'Face'),
   Example(imageUrl:'assets/images/golden-ratio/human/finger.png', title: 'Finger'),
+  Example(imageUrl:'assets/images/golden-ratio/human/woman1.jpg', title: 'Woman'),
   Example(imageUrl:'assets/images/golden-ratio/human/fingers.jpg', title: 'Fingers Skeleton'),
   Example(imageUrl:'assets/images/golden-ratio/human/profile.png', title: 'Face profile'),
   Example(imageUrl:'assets/images/golden-ratio/human/woman.jpg', title: 'Woman'),
-  Example(imageUrl:'assets/images/golden-ratio/human/woman1.jpg', title: 'Woman'),
 ];
 
 List<Example> meme = [

@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 
 class Category extends StatefulWidget {
   final List<Example> list;
-  final Color color;
   final String bgimage;
-  const Category({this.list, this.color, this.bgimage});
+  const Category({this.list, this.bgimage});
   @override
   _CategoryState createState() => _CategoryState();
 }

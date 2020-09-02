@@ -152,7 +152,7 @@ Future<String> uploadFile(File imageFile) async {
                     ),
                 FlatButton.icon(
                 onPressed: () => chooseFromCamera(), 
-                label: Text('Create an Image'),
+                label: Text('Camera'),
                 icon: Icon(Icons.photo_camera)
                 ),
                 ],
