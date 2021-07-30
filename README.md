@@ -1,16 +1,22 @@
-# aurea
+# Aurea
 
-A new Flutter project.
+Identify The Golden Ratio In Everyday Objects
 
-## Getting Started
+![Aurea Cover](https://github.com/Prash2002/aurea/blob/master/cover.png)
 
-This project is a starting point for a Flutter application.
+## Aurea provides: 
+  1) detailed explanation of golden ration along with YouTube videos. 
+  2) examples of golden ratio based on each category, for example: golden ratio in nature, art, architecture, etc.
+  3) you can use golden ratio generator where you can upload an image, and you adjust the golden ratio spiral by flipping the axis, inverting the color and you can download the merged image. 
+  4) the golden ratio calculator, you can enter either the values of a, b, or a+b. The other values will automatically be calculated. 
+  5) one can upload a post to public forum with a caption and image. 6) in public forum, you can view all the posts, like and comment on it. And also like the comments on each post.
 
-A few resources to get you started if this is your first Flutter project:
+### Techstack:
+  Flutter, Firebase
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Video link: 
+https://drive.google.com/file/d/1_Qb7FwmgMXBTd1y0IiayE9qtxnfr-j88/view?usp=sharing
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Apk :
+https://drive.google.com/file/d/1huHkpvZgTHPzWsGZFGWrE5rXDfo6ydxm/view?usp=sharing
+
